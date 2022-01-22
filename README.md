@@ -14,7 +14,7 @@
 
 <h1 id="preview" align="center">Preview</h1>
 <p align="center">
-  <a href="https://ahsankhan.me/TermFolio"><img src="https://forthebadge.com/images/badges/check-it-out.svg"></a>
+  <a href="https://noobs-creation.github.io/"><img src="https://forthebadge.com/images/badges/check-it-out.svg"></a>
 </p>
 
 <h1 id="setup">Setup</h1>
@@ -23,7 +23,7 @@ Just clone the repository and update the data.js file
 
 ```ruby
 # Clone this repository
-$ git clone https://github.com/ahsankhan26/TermFolio.git
+$ git clone https://github.com/noobs-creation/noobs-creation.github.io.git
 
 # Go to the repository folder
 $ cd TermFolio
