@@ -1,5 +1,7 @@
 body {
-    background-color: #242629;
+    /* background-color: #242629; */
+    
+    background: "url('assets/Mac.png')";
     color: rgb(37, 247, 9);
 }
 
@@ -7,7 +9,6 @@ body {
     font: 1em Consolas, monaco, monospace;
     top: 5em;
     bottom: 6em;
-    background: "url('assets/Mac.png')";
 }
 
 .container {
