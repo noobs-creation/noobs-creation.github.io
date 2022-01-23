@@ -1,7 +1,7 @@
 body {
     /* background-color: #242629; */
     
-    background-image: "Mac720.png";
+    
     color: rgb(37, 247, 9);
 }
 
@@ -9,6 +9,7 @@ body {
     font: 1em Consolas, monaco, monospace;
     top: 5em;
     bottom: 6em;
+    background-image: "Mac720.png";
 }
 
 .container {
