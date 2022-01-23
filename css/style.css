@@ -7,7 +7,7 @@ body {
     font: 1em Consolas, monaco, monospace;
     top: 5em;
     bottom: 6em;
-    background-image: "url('assets/Mac.png')";
+    background: "url('assets/Mac.png')";
 }
 
 .container {
