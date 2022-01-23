@@ -34,7 +34,7 @@ function execute(inputValue) {
 
 function executeCommand(command){
 
-    terminalBody.innerHTML += '<br><br>'
+    // terminalBody.innerHTML += '<br>'
 
     for(let i=0; i<data[command].length; ++i){
 
