@@ -3,223 +3,370 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Very Important Question</title>
+    <title>For My Valentine</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Lobster&display=swap');
+        /* --- CSS STYLES --- */
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600&display=swap');
 
         :root {
-            --bg-color-1: #ff9a9e;
-            --bg-color-2: #fecfef;
-            --bg-color-3: #a1c4fd;
-            --bg-color-4: #c2e9fb;
-            --primary-text: #833ab4;
-            --yes-btn-bg: #4CAF50;
-            --no-btn-bg: #f44336;
+            --primary-color: #ff4d6d;
+            --secondary-color: #ff8fa3;
+            --bg-color: #fff0f3;
+            --text-color: #590d22;
         }
 
         body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
-            font-family: 'Fredoka One', cursive;
-            background: linear-gradient(-45deg, var(--bg-color-1), var(--bg-color-2), var(--bg-color-3), var(--bg-color-4));
+            /* Dynamic animated background */
+            background: linear-gradient(45deg, #ffb3c6, #ffc8dd, #ffafcc, #bde0fe, #a2d2ff);
             background-size: 400% 400%;
-            animation: gradient-animation 15s ease infinite;
-            overflow: hidden;
-            text-align: center;
+            animation: gradientBG 10s ease infinite;
         }
 
-        @keyframes gradient-animation {
+        @keyframes gradientBG {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
 
-        .container {
+        /* Container for all screens */
+        .app-container {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 2rem;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            position: relative;
+            min-height: 400px;
             display: flex;
             flex-direction: column;
+            justify-content: center;
             align-items: center;
-            animation: fadeIn 1s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        #main-content img {
-            width: 200px;
-            height: 200px;
-            margin-bottom: 1rem;
+            transition: transform 0.3s ease;
         }
 
         h1 {
-            font-family: 'Lobster', cursive;
-            font-size: 3rem;
-            color: var(--primary-text);
-            text-shadow: 3px 3px 0px rgba(255, 255, 255, 0.7);
-            margin-bottom: 2rem;
+            font-family: 'Pacifico', cursive;
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
         }
 
-        .buttons {
-            display: flex;
-            gap: 1.5rem;
-            margin-top: 1rem;
+        p {
+            color: var(--text-color);
+            margin-bottom: 1.5rem;
         }
 
-        button {
-            padding: 15px 35px;
-            font-family: 'Fredoka One', cursive;
-            font-size: 1.5rem;
-            cursor: pointer;
+        /* Buttons */
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
             border: none;
+            padding: 12px 30px;
             border-radius: 50px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.3);
         }
 
-        #yesBtn {
-            background-color: var(--yes-btn-bg);
-            color: white;
+        .btn:hover {
+            transform: scale(1.05);
+            background-color: #ff2a51;
         }
 
-        #noBtn {
-            background-color: var(--no-btn-bg);
-            color: white;
-            position: absolute;
-            transition: all 0.3s ease;
+        .btn:active {
+            transform: scale(0.95);
         }
 
-        #yesBtn:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-        }
-        
-        .hidden {
+        /* Screens Logic */
+        .screen {
             display: none;
+            width: 100%;
+            flex-direction: column;
+            align-items: center;
+            animation: fadeIn 0.5s ease-out;
         }
-        
-        #celebration {
-            text-align: center;
+
+        .screen.active {
+            display: flex;
         }
-        
-        #celebration img {
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- Welcome Screen --- */
+        .heart-icon {
+            font-size: 4rem;
+            color: var(--primary-color);
+            animation: heartbeat 1.5s infinite;
+            cursor: pointer;
+            margin: 20px 0;
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            15% { transform: scale(1.3); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.15); }
+            60% { transform: scale(1); }
+        }
+
+        /* --- Puzzle Screen --- */
+        .puzzle-container {
             width: 300px;
             height: 300px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 2px;
+            background-color: white;
+            padding: 5px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            margin-bottom: 1rem;
+        }
+
+        .tile {
+            width: 100%;
+            height: 100%;
+            background-image: url('image.jpg'); /* PUZZLE IMAGE SOURCE */
+            background-size: 300% 300%; 
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border-radius: 4px;
+        }
+
+        .tile.selected {
+            border: 2px solid var(--primary-color);
+            transform: scale(0.95);
+            box-shadow: 0 0 10px var(--secondary-color);
+            z-index: 10;
+        }
+
+        /* --- Proposal Screen --- */
+        .final-image {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .button-group {
+            position: relative;
+            width: 100%;
+            height: 100px; /* Space for button to move */
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        #no-btn {
+            background-color: #f1f1f1;
+            color: #555;
+            position: absolute; /* Allows movement */
+            transition: all 0.2s ease; /* Smooth gliding */
+        }
+
+        /* --- Success Screen --- */
+        .celebration-gif {
+            width: 100%;
+            max-width: 250px;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 400px) {
+            .puzzle-container {
+                width: 280px;
+                height: 280px;
+            }
+            h1 { font-size: 2rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Main Content: Initially Visible -->
-    <div id="main-content" class="container">
-        <img src="https://media.tenor.com/E_1gSA823zAAAAAi/quby-pentol.gif" alt="Cute character asking">
-        <h2>Today's Girlfriend Day</h2>
-        <h2>I wanted to say, Happy Girlfriend Day</h2>
-        <h2>But I also wanted to know something, Are you my Girlfriend?</h2>
-        <h3>Don't bother trying to click NO ;)</h3>
-        <div class="buttons">
-            <button id="yesBtn">Yes!</button>
+    <div class="app-container">
+        
+        <div id="welcome-screen" class="screen active">
+            <h1>Hi Babay</h1>
+            <p>I made this just for you.</p>
+            <div class="heart-icon" onclick="startApp()">❤️</div>
+            <p style="font-size: 0.8rem; opacity: 0.7;">Tap the heart to begin</p>
         </div>
-        <button id="noBtn">No</button>
-    </div>
-    
-    <!-- Celebration Content: Initially Hidden -->
-    <div id="celebration" class="container hidden">
-        <h1>Main tera boyfriend 🎉</h1>
-        <h1>Tu meri girlfriend 🎉</h1>
-        <h1>Oh mainu kehndi na na na na! 🎉</h1>
-        <img src="https://media.tenor.com/p8d_2qNq9_sAAAAi/peach-goma.gif" alt="Happy characters celebrating">
-    </div>
 
-    <!-- Audio element pointing to the LOCAL file -->
-    <audio id="celebrationSong">
-        <source src="Main.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
+        <div id="puzzle-screen" class="screen">
+            <h1>Fix Us 🧩</h1>
+            <p>Tap two tiles to swap them until the picture looks right!</p>
+            <div class="puzzle-container" id="puzzle-board">
+                </div>
+        </div>
 
-    <!-- Confetti library -->
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+        <div id="proposal-screen" class="screen">
+            <img src="image.jpg" alt="Us" class="final-image">
+            
+            <h1 style="font-size: 2rem;">Will you be my Valentine?</h1>
+            <div class="button-group">
+                <button class="btn" onclick="acceptProposal()">Yes! 💖</button>
+                <button class="btn" id="no-btn" onmouseover="moveButton()" ontouchstart="moveButton()">No</button>
+            </div>
+        </div>
+
+        <div id="success-screen" class="screen">
+            <h1>It's a date forever! 👫</h1>
+            <img src="celebration.gif" alt="Celebration" class="celebration-gif">
+            
+            <p>I knew you'd say yes!</p>
+            <br>
+            <p>I love you a lot!</p>
+        </div>
+
+    </div>
 
     <script>
-        const noBtn = document.getElementById('noBtn');
-        const yesBtn = document.getElementById('yesBtn');
-        const mainContent = document.getElementById('main-content');
-        const celebrationContent = document.getElementById('celebration');
-        const song = document.getElementById('celebrationSong');
+        // --- CONFIGURATION ---
+        const gridSize = 3; // 3x3 grid
+        let tiles = []; // Stores current order of tiles
+        let selectedTileIndex = null; // For swapping logic
 
-        function setInitialNoBtnPosition() {
-            const yesBtnRect = yesBtn.getBoundingClientRect();
-            noBtn.style.position = 'absolute';
-            noBtn.style.left = yesBtnRect.right + 20 + 'px';
-            noBtn.style.top = yesBtnRect.top + 'px';
+        // --- NAVIGATION FUNCTIONS ---
+        function startApp() {
+            document.getElementById('welcome-screen').classList.remove('active');
+            document.getElementById('puzzle-screen').classList.add('active');
+            initGame();
         }
 
-        function moveButton() {
-            const viewportWidth = window.innerWidth;
-            const viewportHeight = window.innerHeight;
-            const buttonWidth = noBtn.offsetWidth;
-            const buttonHeight = noBtn.offsetHeight;
-
-            let newLeft = Math.random() * (viewportWidth - buttonWidth);
-            let newTop = Math.random() * (viewportHeight - buttonHeight);
-            
-            newLeft = Math.max(0, Math.min(newLeft, viewportWidth - buttonWidth));
-            newTop = Math.max(0, Math.min(newTop, viewportHeight - buttonHeight));
-            
-            noBtn.style.left = `${newLeft}px`;
-            noBtn.style.top = `${newTop}px`;
+        function showProposal() {
+            document.getElementById('puzzle-screen').classList.remove('active');
+            document.getElementById('proposal-screen').classList.add('active');
         }
-        
-        noBtn.addEventListener('mouseover', moveButton);
-        noBtn.addEventListener('click', moveButton);
 
-        // Final robust click handler for the 'Yes' button
-        yesBtn.addEventListener('click', () => {
-            // Immediately start the visual celebration for good user experience
-            mainContent.classList.add('hidden');
-            noBtn.classList.add('hidden');
-            celebrationContent.classList.remove('hidden');
+        function acceptProposal() {
+            // Trigger Confetti
+            var duration = 3 * 1000;
+            var animationEnd = Date.now() + duration;
+            var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
 
-            // Set the audio's start time
-            song.currentTime = 64; // 1 minute and 4 seconds
-
-            // Play the audio. This is now inside a direct user-click event.
-            const playPromise = song.play();
-
-            if (playPromise !== undefined) {
-                playPromise.catch(error => {
-                    // This error will show if the browser still blocks it.
-                    console.error("Audio playback failed:", error);
-                    alert("Sorry, your browser blocked the audio from playing automatically.");
-                });
-            }
-
-            // Start the confetti visuals
-            const duration = 10 * 1000;
-            const animationEnd = Date.now() + duration;
-            const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
-
-            function randomInRange(min, max) {
-                return Math.random() * (max - min) + min;
-            }
-
-            const interval = setInterval(() => {
-                const timeLeft = animationEnd - Date.now();
+            var interval = setInterval(function() {
+                var timeLeft = animationEnd - Date.now();
                 if (timeLeft <= 0) {
                     return clearInterval(interval);
                 }
-                const particleCount = 50 * (timeLeft / duration);
-                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
-                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+                var particleCount = 50 * (timeLeft / duration);
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: Math.random(), y: Math.random() - 0.2 } }));
             }, 250);
-        });
 
-        window.addEventListener('load', setInitialNoBtnPosition);
-        window.addEventListener('resize', setInitialNoBtnPosition);
+            document.getElementById('proposal-screen').classList.remove('active');
+            document.getElementById('success-screen').classList.add('active');
+        }
+
+        // --- GAME LOGIC ---
+        function initGame() {
+            const board = document.getElementById('puzzle-board');
+            board.innerHTML = '';
+            tiles = Array.from({length: gridSize * gridSize}, (_, i) => i);
+            
+            // Shuffle (Simple random sort)
+            tiles.sort(() => Math.random() - 0.5);
+
+            // Ensure it's not solved initially (rare but possible)
+            if (isSolved()) {
+                tiles.sort(() => Math.random() - 0.5);
+            }
+
+            renderBoard();
+        }
+
+        function renderBoard() {
+            const board = document.getElementById('puzzle-board');
+            board.innerHTML = '';
+
+            tiles.forEach((tileIndex, positionIndex) => {
+                const tile = document.createElement('div');
+                tile.className = 'tile';
+                if (positionIndex === selectedTileIndex) tile.classList.add('selected');
+
+                // Calculate background position
+                // x = (col_index) * 50% (since 3 cols => 0, 50, 100)
+                const col = tileIndex % gridSize;
+                const row = Math.floor(tileIndex / gridSize);
+                
+                tile.style.backgroundPosition = `${col * 50}% ${row * 50}%`;
+                
+                tile.onclick = () => handleTileClick(positionIndex);
+                board.appendChild(tile);
+            });
+        }
+
+        function handleTileClick(index) {
+            if (selectedTileIndex === null) {
+                // Select first tile
+                selectedTileIndex = index;
+                renderBoard(); // Re-render to show selection border
+            } else if (selectedTileIndex === index) {
+                // Deselect if clicked again
+                selectedTileIndex = null;
+                renderBoard();
+            } else {
+                // Swap!
+                const temp = tiles[selectedTileIndex];
+                tiles[selectedTileIndex] = tiles[index];
+                tiles[index] = temp;
+                
+                selectedTileIndex = null;
+                renderBoard();
+
+                if (isSolved()) {
+                    // Correct order achieved!
+                    setTimeout(() => {
+                        confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+                        setTimeout(showProposal, 1500); // Wait 1.5s then show proposal
+                    }, 300);
+                }
+            }
+        }
+
+        function isSolved() {
+            for (let i = 0; i < tiles.length; i++) {
+                if (tiles[i] !== i) return false;
+            }
+            return true;
+        }
+
+        // --- NO BUTTON EVASION LOGIC ---
+        function moveButton() {
+            const btn = document.getElementById('no-btn');
+            const container = document.querySelector('.button-group');
+            
+            // Get container dimensions
+            const rect = container.getBoundingClientRect();
+            
+            // Calculate random position within reasonably visible bounds relative to the container
+            // We expand bounds slightly outside the button group div so it can jump around
+            const x = (Math.random() * 200) - 100; // -100px to +100px
+            const y = (Math.random() * 200) - 100; // -100px to +100px
+            
+            btn.style.transform = `translate(${x}px, ${y}px)`;
+        }
+
     </script>
-
 </body>
 </html>
